@@ -17,7 +17,6 @@ async def example() -> None:
         run = await session_client.run_sync(
             MessagePart(
                 content="Hi, my name is Jon.",
-                role="user",
             ),
             agent=agent,
             base_url=server_one,
@@ -27,7 +26,6 @@ async def example() -> None:
         run = await session_client.run_sync(
             MessagePart(
                 content="What is my name again?",
-                role="user",
             ),
             agent=agent,
             base_url=server_two,

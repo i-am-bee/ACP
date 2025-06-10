@@ -302,18 +302,10 @@ components:
       description: "A part of a message, containing a specific `content_type` and either inline `content` or `content_url`. Only one of `content` or `content_url` must be provided."
     Message:
       type: object
+      required:
+        - parts
+        - role
       properties:
-        parts:
-          type: array
-          items:
-            $ref: "#/components/schemas/MessagePart"
-          minItems: 1
-        created_at:
-          type: string
-          format: date-time
-        completed_at:
-          type: string
-          format: date-time
         role:
           type: string
           description: |
@@ -327,9 +319,18 @@ components:
             - agent/summarizer
             - agent/data_processor
           pattern: '^(user|agent(\/[a-zA-Z0-9_\-]+)?)$'
-      required:
-        - parts
-        - role
+        parts:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessagePart"
+          minItems: 1
+          description: "Ordered sequence of message parts"
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
     AwaitRequest:
       type: object
       description: Payload describing what is awaited from the client to continue the run.

@@ -28,7 +28,7 @@ The **Agent Communication Protocol (ACP)** is an open standard with open governa
 
 | **Concept**      | **Description**  |
 | ---------------- | -------------------------------------------------------------------------------------------- |
-| **[Agent Detail](https://agentcommunicationprotocol.dev/core-concepts/agent-detail)** | A model describing an agent’s capabilities—its name, description, and optional metadata and status—for discovery and composition without exposing implementation details. |
+| **[Agent Detail](https://agentcommunicationprotocol.dev/core-concepts/agent-detail)** | A model describing an agent's capabilities—its name, description, and optional metadata and status—for discovery and composition without exposing implementation details. |
 | **[Run](https://agentcommunicationprotocol.dev/core-concepts/agent-lifecycle#agent-runs-and-state-management)** | A single agent execution with specific inputs. Supports sync or streaming, with intermediate and final output. |
 | **[Message](https://agentcommunicationprotocol.dev/core-concepts/message-structure)** | The core structure for communication, consisting of a sequence of ordered components that form a complete, structured, and multi-modal exchange of information. |
 | **[MessagePart](https://agentcommunicationprotocol.dev/core-concepts/message-structure)**  | The individual content units within a `Message`, which can include types like text, image, or JSON. Together, they combine to create structured, multimodal communication. |
@@ -56,7 +56,7 @@ uv add acp-sdk
 
 **3. Create an agent**
 
-Let’s create a simple "echo agent" that returns any message it receives.  
+Let's create a simple "echo agent" that returns any message it receives.  
 Create an `agent.py` file in your project directory with the following code:
 
 ```python
@@ -122,6 +122,7 @@ curl -X POST http://localhost:8000/runs \
         "agent_name": "echo",
         "input": [
           {
+            "role": "user",
             "parts": [
               {
                 "content": "Howdy!",
@@ -133,7 +134,7 @@ curl -X POST http://localhost:8000/runs \
       }'
 ```
 
-Your response should include the echoed message “Howdy!”:
+Your response should include the echoed message "Howdy!":
 
 ```json
 {
@@ -144,6 +145,7 @@ Your response should include the echoed message “Howdy!”:
   "await_request": null,
   "output": [
     {
+      "role": "agent/echo",
       "parts": [
         {
           "name": null,
@@ -163,7 +165,7 @@ Your response should include the echoed message "Howdy!".
 
 **7. Build an ACP client**
 
-Here’s a simple ACP client to interact with your `echo` agent.  
+Here's a simple ACP client to interact with your `echo` agent.  
 Create a `client.py` file in your project directory with the following code:
 
 ```python
@@ -203,7 +205,7 @@ You should see the echoed response printed to your console. 🎉
 
 ## Contributors
 
-We are grateful for the efforts of our initial contributors, who have played a vital role in getting ACP of the ground. As we continue to grow and evolve, we invite others to join our vibrant community and contribute to our project’s ongoing development. For more information, please visit the [Contribute](https://agentcommunicationprotocol.dev/about/contribute) page of our documentation.
+We are grateful for the efforts of our initial contributors, who have played a vital role in getting ACP of the ground. As we continue to grow and evolve, we invite others to join our vibrant community and contribute to our project's ongoing development. For more information, please visit the [Contribute](https://agentcommunicationprotocol.dev/about/contribute) page of our documentation.
 
 ![Contributors list](https://contrib.rocks/image?repo=i-am-bee/acp)
 

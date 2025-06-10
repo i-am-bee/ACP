@@ -61,7 +61,7 @@ async def canvas_agent(input: list[Message], context: Context) -> AsyncGenerator
     response = await llm.create(messages=[
         SystemMessage(SYSTEM_PROMPT),
         *(
-            (UserMessage if getattr(message.parts[0], "role", None) == "user" else AssistantMessage)(str(message))
+            (UserMessage if message.role == "user" else AssistantMessage)(str(message))
             for message in input
         ),
     ])

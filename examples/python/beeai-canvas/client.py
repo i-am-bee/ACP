@@ -14,7 +14,7 @@ async def run_client() -> None:
         async with Client(base_url="http://localhost:8000") as client, client.session():
             while True:
                 user_message = input(">>> ")
-                user_message_input = Message(parts=[MessagePart(content=user_message, role="user")])
+                user_message_input = Message(parts=[MessagePart(content=user_message)])
 
                 print("Assistant:", flush=True)
                 collected_artifacts = []

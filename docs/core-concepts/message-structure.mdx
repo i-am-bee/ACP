@@ -5,6 +5,13 @@ description: "A minimal, multi-modal structure for exchanging content"
 
 In the Agent Communication Protocol (ACP), a **Message** is a sequence of ordered parts, forming complete, structured, multi-modal communications.
 
+## Message Role
+
+Each message must specify a `role` that identifies the sender. Valid role formats are:
+- `user` - for messages from users
+- `agent` - for generic agent messages
+- `agent/{name}` - for specific agent messages where name can contain alphanumeric characters, underscores, and hyphens (e.g. `agent/image-analyzer`, `agent/chat_bot`)
+
 ## Message Parts
 
 | Attribute                  | Required | Description                                                               |
@@ -31,49 +38,70 @@ ACP Messages always consist of ordered parts. The ordering ensures content is pr
 
 ```json
 {
-  "content_type": "text/plain",
-  "content": "Hello, world!"
+  "role": "user",
+  "parts": [{
+    "content_type": "text/plain",
+    "content": "Hello, world!"
+  }]
+}
+```
+
+### Agent Response Message
+
+```json
+{
+  "role": "agent/assistant",
+  "parts": [{
+    "content_type": "text/plain",
+    "content": "Hello! How can I help you today?"
+  }]
 }
 ```
 
 ### Multi-modal Message with Image
 
 ```json
-[
-  {
-    "content_type": "text/plain",
-    "content": "This is a cute cat:"
-  },
-  {
-    "content_type": "image/png",
-    "content_url": "https://s3.example.com/12345678901234567890/image.png"
-  },
-  {
-    "content_type": "text/plain",
-    "content": "Would you like me to send more images of cats?"
-  },
-  {
-    "name": "/sources/1.url",
-    "content_type": "text/url",
-    "content": "https://example.com/cat-facts"
-  }
-]
+{
+  "role": "agent/image-analyzer",
+  "parts": [
+    {
+      "content_type": "text/plain",
+      "content": "This is a cute cat:"
+    },
+    {
+      "content_type": "image/png",
+      "content_url": "https://s3.example.com/12345678901234567890/image.png"
+    },
+    {
+      "content_type": "text/plain",
+      "content": "Would you like me to send more images of cats?"
+    },
+    {
+      "name": "/sources/1.url",
+      "content_type": "text/url",
+      "content": "https://example.com/cat-facts"
+    }
+  ]
+}
 ```
 
 ### Message with an Artifact
 
 ```json
-[
-  {
-    "content_type": "text/plain",
-    "content": "Here's the report you requested:"
-  },
-  {
-    "name": "/report.pdf",
-    "content_type": "application/pdf",
-    "content_url": "https://example.com/report.pdf"
-  }
-]
+{
+  "role": "agent/report-generator",
+  "parts": [
+    {
+      "content_type": "text/plain",
+      "content": "Here's the report you requested:"
+    },
+    {
+      "name": "/report.pdf",
+      "content_type": "application/pdf",
+      "content_url": "https://example.com/report.pdf"
+    }
+  ]
+}
 ```
 
 ## Content Delivery Methods
@@ -84,9 +112,12 @@ Use inline content for small, text-based, or simple data:
 
 ```json
 {
-  "content_type": "text/plain",
-  "content": "Direct text content",
-  "content_encoding": "plain" // Default if omitted
+  "role": "user",
+  "parts": [{
+    "content_type": "text/plain",
+    "content": "Direct text content",
+    "content_encoding": "plain" // Default if omitted
+  }]
 }
 ```
 
@@ -96,8 +127,11 @@ Use referenced content (via URLs) for larger files, external resources, or when 
 
 ```json
 {
-  "content_type": "image/jpeg",
-  "content_url": "https://example.com/image.jpg"
+  "role": "agent/file-processor",
+  "parts": [{
+    "content_type": "image/jpeg",
+    "content_url": "https://example.com/image.jpg"
+  }]
 }
 ```
 
@@ -107,9 +141,12 @@ Use explicitly for binary data (e.g., images, documents) embedded directly:
 
 ```json
 {
-  "content_type": "image/png",
-  "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
-  "content_encoding": "base64"
+  "role": "agent/image-processor",
+  "parts": [{
+    "content_type": "image/png",
+    "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "content_encoding": "base64"
+  }]
 }
 ```
 
@@ -129,6 +166,7 @@ class Artifact(MessagePart):
     name: str  # Name is required for Artifacts
 
 class Message(BaseModel):
+    role: Literal["user"] | Literal["agent"] | str  # str must match pattern "^(user|agent(\/[a-zA-Z0-9_\-]+)?)$"
     parts: list[MessagePart]
 ```
 

@@ -11,7 +11,7 @@ async def client() -> None:
     while True:
         user_message = input(">>> ")
         user_message_input = Message(
-            parts=[MessagePart(content=user_message, role="user")]
+            parts=[MessagePart(content=user_message)]
         )
 
         async with Client(base_url="http://localhost:8000") as client:

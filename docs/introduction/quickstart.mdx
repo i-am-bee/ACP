@@ -28,7 +28,7 @@ uv add acp-sdk
 </Step>
 <Step title="Create an agent">
 
-Let’s create a simple "echo agent" that returns any message it receives.
+Let's create a simple "echo agent" that returns any message it receives.
 Create an `agent.py` file in your project directory with the following code:
 
 ```python agent.py
@@ -99,6 +99,7 @@ curl -X POST http://localhost:8000/runs \
         "agent_name": "echo",
         "input": [
           {
+            "role": "user",
             "parts": [
               {
                 "content": "Howdy!",
@@ -119,6 +120,7 @@ curl -X POST http://localhost:8000/runs \
   "await_request": null,
   "output": [
     {
+      "role": "agent/echo",
       "parts": [
         {
           "name": null,
@@ -141,7 +143,7 @@ Your response should include the echoed message "Howdy!".
 </Step>
 <Step title="Build an ACP client">
 
-Here’s a simple ACP client to interact with your `echo` agent.
+Here's a simple ACP client to interact with your `echo` agent.
 Create a `client.py` file in your project directory with the following code:
 
 ```python client.py
