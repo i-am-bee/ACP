@@ -1,7 +1,34 @@
 [tools]
 python = "3.11"
 uv = "0.6.16"
+"ubi:B1NARY-GR0UP/nwa" = "latest"
 
 [settings]
 experimental = true # for python.uv_venv_auto
 python.uv_venv_auto = true
+
+[tasks."common:check:nwa"]
+dir = "{{config_root}}"
+run = """
+ret=1
+nwa check -i Apache-2.0 'examples/**/*.{py,js,jsx,ts,tsx,html,css,scss}' || ret=$?
+nwa check -i Apache-2.0 '*/src/**/*.{py,js,jsx,ts,tsx,html,css,scss}' || ret=$?
+nwa check -i Apache-2.0 'python/tests/**/*.{py,js,jsx,ts,tsx,html,css,scss}' || ret=$?
+nwa check -i Apache-2.0 'typescript/test/**/*.{py,js,jsx,ts,tsx,html,css,scss}' || ret=$?
+(($ret==0))
+"""
+outputs = { auto = true }
+
+[tasks."common:fix:nwa"]
+dir = "{{config_root}}"
+run = """
+nwa update -i Apache-2.0 'examples/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa add    -i Apache-2.0 'examples/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa update -i Apache-2.0 '*/src/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa add    -i Apache-2.0 '*/src/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa update -i Apache-2.0 'python/tests/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa add    -i Apache-2.0 'python/tests/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa update -i Apache-2.0 'typescript/test/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+nwa add    -i Apache-2.0 'typescript/test/**/*.{py,js,jsx,ts,tsx,html,css,scss}' --mute || true
+"""
+outputs = { auto = true }
