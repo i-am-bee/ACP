@@ -16,6 +16,16 @@ defaults:
     working-directory: python
 
 jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: mise run --force common:check:nwa
   python-lint:
     name: Python Lint
     runs-on: ubuntu-latest
