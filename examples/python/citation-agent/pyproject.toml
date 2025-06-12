@@ -2,11 +2,11 @@
 name = "citation-agent"
 version = "0.1.0"
 description = "Demonstration of citation"
-requires-python = ">=3.12, <4.0"
+requires-python = ">=3.11, <4.0"
 dependencies = [
     "acp-sdk",
     "pydantic-settings>=2.9.0",
 ]
 
 [tool.uv.sources]
-acp-sdk = { workspace = true }
+acp-sdk = { path = '../../../python' }
