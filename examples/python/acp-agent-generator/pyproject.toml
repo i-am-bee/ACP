@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-acp-sdk = { workspace = true }
+acp-sdk = { path = '../../../python' }

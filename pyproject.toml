@@ -1,5 +1,5 @@
 [tool.uv.workspace]
-members = ["python", "examples/python/*"]
+members = ["python"]
 
 [tool.ruff]
 lint.select = [

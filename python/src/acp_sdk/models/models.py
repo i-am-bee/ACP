@@ -77,6 +77,13 @@ class Metadata(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
+class CitationMetadata(BaseModel):
+    kind: Literal["citation"] = "citation"
+    url: str
+    start_index: int
+    end_index: int
+
+
 class MessagePart(BaseModel):
     name: Optional[str] = None
     content_type: Optional[str] = "text/plain"
@@ -86,9 +93,9 @@ class MessagePart(BaseModel):
 
     model_config = ConfigDict(extra="allow")
 
+    metadata: Optional[CitationMetadata] = Field(discriminator="kind", default=None)
+
     def model_post_init(self, __context: Any) -> None:
-        if self.content is None and self.content_url is None:
-            raise ValueError("Either content or content_url must be provided")
         if self.content is not None and self.content_url is not None:
             raise ValueError("Only one of content or content_url can be provided")
 
@@ -282,7 +289,6 @@ Event = Union[
     RunCancelledEvent,
     RunFailedEvent,
     RunCompletedEvent,
-    MessagePartEvent,
 ]
 
 

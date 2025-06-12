@@ -1,11 +1,11 @@
 [project]
-name = "crewai-song-writer"
+name = "citation-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "Demonstration of citation"
 requires-python = ">=3.11, <4.0"
 dependencies = [
     "acp-sdk",
-    "crewai[tools]>=0.95.0",
+    "pydantic-settings>=2.9.0",
 ]
 
 [tool.uv.sources]
