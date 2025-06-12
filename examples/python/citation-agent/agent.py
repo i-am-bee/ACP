@@ -3,15 +3,22 @@ from collections.abc import AsyncGenerator
 from acp_sdk import Message, Metadata
 from acp_sdk.models import MessagePart
 from acp_sdk.server import Context, Server
+from acp_sdk.models.models import CitationMetadata
 
 server = Server()
 
 
-@server.agent(metadata=Metadata(ui={"type": "hands-off", "user_greeting": "What topic do you want to research?"}))
+@server.agent(metadata=Metadata(ui={"type": "hands-off", "user_greeting": "Let's test citations"}))
 async def citation_agent(input: list[Message], context: Context) -> AsyncGenerator:
     yield MessagePart(
-        content="This is a testing citation",
-        metadata={"kind": "citation", "data": {"url": "https://www.ibm.com", "start_index": 9, "end_index": 25}},
+        content="If you are bored, you can try tipping a cow.",
+    )
+    yield MessagePart(
+        metadata=CitationMetadata(
+            url="https://en.wikipedia.org/wiki/Cow_tipping",
+            start_index=30,
+            end_index=43
+        )
     )
 
 
