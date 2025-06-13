@@ -1,0 +1,24 @@
+---
+title: "Agent Detail"
+description: "Structure and usage of the Agent Detail"
+openapi-schema: "Agent"
+---
+
+The **Agent Detail** describes essential properties of an agent, including its identity, capabilities, metadata, and runtime status. The Agent Detail is configured in the @server.agent decorator that wraps the ACP agent. The Agent Detail also plays an important role in discoverability and how the ACP server is advertised to the client.
+<Note>
+If the `name` parameter is not specified in the `@server.agent` decorator, the agent's function name will be used as the default name. Similarly, if no `description` is provided, the function's docstring will be used as the description.
+</Note>
+
+## Configuration Example
+The @server.agent decorator is used to configure an agent's metadata when registering it with an ACP server:
+```python agent.py
+@server.agent(
+    name="data-analyzer",
+    description="Analyzes datasets and generates insights")
+async def DataAnalyzerAgent():
+    """String that is used as default description if not explicitly provided in the @server.agent """
+    # Agent implementation here
+    yield str(response.object)
+
+```
+## Parameters

@@ -3,94 +3,91 @@ title: "Example Agents"
 description: "Explore reference agent implementations"
 ---
 
-Each example demonstrates how to expose agents built with various AI frameworks through ACP, preserving their specialized capabilities while leveraging ACP's standardized communication interface.
+Each example demonstrates how to expose agents built with various AI frameworks and functionality through ACP, preserving their specialized capabilities while leveraging ACP's standardized communication interface.
 
-## Basic Components Of ACP
+## Basic Server and Client Examples
 
-A basic collection of standalone implementation of the various types of ACP clients and servers.
+A collection of standalone implementations of the various types of ACP clients and servers.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/basic).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/basic).
 
 
-## BeeAI Framework Chat
+## Chat Agent with Tools, Memory, and Structured Output
 
 Integrates the [BeeAI framework's](https://github.com/i-am-bee/beeai-framework) ReAct agent architecture with ACP by mapping BeeAI events to ACP protocol messages. This enables tool-based reasoning steps and structured final outputs within ACP.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-chat).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-chat).
 
+## Slack Agent using MCP
 
-## Prompt-Chaining With BeeAI
+This example demonstrates an implementation of an ACP-compatible Slack Agent using the [BeeAI framework](https://github.com/i-am-bee/beeai-framework). It leverages the framework's tool-calling agent and integrates with the MCP Server for Slack API, enabling activities on Slack via the Agent Communication Protocol (ACP).
+
+<Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-slack-mcp).
+
+## RAG LlamaIndex Agent
+
+Demonstrates how to integrate a Retrieval-Augmented Generation (RAG) agent built with [LlamaIndex](https://www.llamaindex.ai/) into ACP. This example shows how to leverage LlamaIndex for document retrieval and synthesis, exposing its capabilities through ACP's standardized interface.
+
+<Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/llama-index-rag).
+
+## Prompt-Chaining
 
 Implementation of prompt chaining pattern using the ACP SDK and [BeeAI framework](https://github.com/i-am-bee/beeai-framework). In this system, a main agent chains two ReAct agents: the first agent generates marketing copy for a product, and then another agent translates this marketing copy into Spanish. This setup showcases how multiple agents can be chained together within ACP.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-prompt-chaining).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-prompt-chaining).
 
 
-## BeeAI Language Translation Using Routing
+## Dynamic Routing
 
 Demonstrates a translation system using [BeeAI framework's](https://github.com/i-am-bee/beeai-framework) ReAct agent with ACP. In this example, a router agent efficiently routes translation requests to specialized agents for Spanish or French translations using the TranslationTool. Exhibits the handling of multilingual translations and the conversion of these translations into structured ACP messages.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-routing).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-routing).
 
 
-## Handoff Pattern With BeeAI
+## Handoff Pattern
 
 Ilustrates a multi agent handoff system, using the [BeeAI framework's](https://github.com/i-am-bee/beeai-framework) ReAct agent architecture with ACP. Based on the input language, the main agent delegates tasks to specialized agents for Spanish and English responses using the HandoffTool. This setup allows for flexible and handling of multilingual inputs via ACP.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-handoff).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-handoff).
 
 
-## BeeAI Framework Canvas
+## Chat Agent with Canvas
 
 Another example using [BeeAI framework](https://github.com/i-am-bee/beeai-framework), this time directly calling an LLM and employing a custom logic for parsing the output. It utilizes the ACP's artifact functionality to include generated files in responses, allowing the user to iterate over the generated files.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-canvas).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-canvas).
 
 
 ## CrewAI Song Writer
 
 A reference implementation of a Crew using [crew.ai](https://www.crewai.com/), exposed via ACP. This Crew generates a song based on a website provided by the user, showcasing collaborative agent behavior exposed as a unit via ACP.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/crewai-song-writer).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/crewai-song-writer).
 
 
 ## GPT Researcher
 
 Integrates GPT Researcher with ACP using a custom handler that transforms outputs into structured ACP messages. This allows real-time progress updates throughout research tasks, enhancing transparency and control.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/gpt-researcher).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/gpt-researcher).
 
 
 ## LangGraph Greeting Agent
 
 An example of a [LangGraph](https://langchain-ai.github.io/langgraph/) agent that returns a time-of-day specific greeting based on a provided name. This demonstrates how LangGraph can enable context-aware, responsive agents within ACP.
 
-The complete source code is available on <Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/langgraph-greeting).
+<Icon icon="github" /> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/langgraph-greeting).
 
 
-## ACP Agent Generator
+## ACP Dynamic Agent Generator
 
 This example demonstrates how to create an agent that dynamically generates other agents using the Agent Communication Protocol (ACP).
 
-The complete source code is available on <Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/acp-agent-generator).
-
-
-## Slack Agent using MCP
-
-This example demonstrates an implementation of an ACP-compatible Slack Agent using the [BeeAI framework](https://github.com/i-am-bee/beeai-framework). It leverages the framework's tool-calling agent and integrates with the MCP Server for Slack API, enabling activities on Slack via the Agent Communication Protocol (ACP).
-
-The complete source code is available on <Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/beeai-slack-mcp).
+<Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/acp-agent-generator).
 
 
 ## OpenAI Story Writer
 
 This example showcases a story writer agent built using the [OpenAI Agent Framework](https://platform.openai.com/docs/guides/agents), fully compatible with the Agent Communication Protocol (ACP). It takes user prompts and generates imaginative short stories, demonstrating how to integrate OpenAI Agents into ACP system.
 
-The complete source code is available on <Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/openai-story-writer).
-
-
-## RAG LlamaIndex Agent
-
-Demonstrates how to integrate a Retrieval-Augmented Generation (RAG) agent built with [LlamaIndex](https://www.llamaindex.ai/) into ACP. This example shows how to leverage LlamaIndex for document retrieval and synthesis, exposing its capabilities through ACP's standardized interface.
-
-The complete source code is available on <Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/llama-index-rag).
+<Icon icon="github"/> [GitHub](https://github.com/i-am-bee/acp/tree/main/examples/python/openai-story-writer).
